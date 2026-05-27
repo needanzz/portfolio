@@ -1,0 +1,1201 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+    --color-primary:    #263F93;
+    --color-secondary:  #ffffff;
+    --color-bg:         #ffffff;
+    --color-text:       #1a1a2e;
+    --color-muted:      #6c757d;
+    --color-surface:    #f4f6fb;
+    --color-border:     #dee2e6;
+
+    /* Dark mode */
+    --color-bg-dark:      #0f1120;
+    --color-surface-dark: #1a1d35;
+    --color-text-dark:    #e8eaf6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Dark Mode Variable Re-bindings */
+body.dark-mode {
+    --color-bg: var(--color-bg-dark);
+    --color-surface: var(--color-surface-dark);
+    --color-text: var(--color-text-dark);
+    --color-border: #222647;
+}
+
+/* Sidebar Layout */
+#app-wrapper {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#sidebar {
+    width: 260px;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.3s ease, left 0.3s ease;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#sidebar.collapsed {
+    width: 64px;
+}
+
+#main-content {
+    flex-grow: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    transition: background-color 0.3s;
+}
+
+/* Sidebar Header & Brand */
+/* Sidebar Header & Brand Redesign */
+.sidebar-header {
+    padding: 2rem 1.25rem 1.75rem 1.25rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+#sidebar.collapsed .sidebar-header {
+    padding: 1.25rem 0.5rem;
+}
+
+/* Diagnostic Status Bar */
+.sidebar-status-pill {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+#sidebar.collapsed .sidebar-status-pill {
+    display: none !important;
+}
+
+.sidebar-status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #27c93f;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #27c93f;
+    animation: status-blink 1.8s infinite ease-in-out;
+}
+
+@keyframes status-blink {
+    0%, 100% {
+        opacity: 0.4;
+        box-shadow: 0 0 4px rgba(39, 201, 63, 0.4);
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(39, 201, 63, 1);
+        transform: scale(1.1);
+    }
+}
+
+/* Avatar Container & Neo-Brutalist Frame */
+.sidebar-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-container {
+    width: 80px;
+    height: 80px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.avatar-container:hover {
+    transform: translate(-3px, -3px) rotate(1deg);
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.35);
+    border-color: var(--color-secondary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    filter: grayscale(15%) contrast(105%);
+    transition: all 0.3s ease;
+}
+
+.avatar-container:hover .sidebar-avatar {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.03);
+}
+
+#sidebar.collapsed .avatar-container {
+    width: 42px;
+    height: 42px;
+    padding: 2px;
+    border-radius: 8px;
+    box-shadow: none;
+}
+#sidebar.collapsed .avatar-container:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--color-secondary);
+}
+
+#sidebar.collapsed .sidebar-avatar {
+    border-radius: 6px;
+}
+
+/* Corner Bracket Decorations */
+.avatar-bracket {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: rgba(255, 255, 255, 0.4);
+    border-style: solid;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+.avatar-container:hover .avatar-bracket {
+    border-color: var(--color-secondary);
+    width: 9px;
+    height: 9px;
+}
+
+.bracket-tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; border-top-left-radius: 3px; }
+.bracket-tr { top: -2px; right: -2px; border-width: 2px 2px 0 0; border-top-right-radius: 3px; }
+.bracket-bl { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; border-bottom-left-radius: 3px; }
+.bracket-br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; border-bottom-right-radius: 3px; }
+
+#sidebar.collapsed .avatar-bracket {
+    display: none !important;
+}
+
+/* User Info Styling */
+.sidebar-user-info {
+    margin-top: 12px;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+#sidebar.collapsed .sidebar-user-info {
+    display: none !important;
+}
+
+.sidebar-user-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-user-role {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Sidebar Navigation Links */
+.sidebar-menu {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.sidebar-menu-item {
+    margin-bottom: 0.25rem;
+    position: relative;
+}
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+    position: relative;
+}
+#sidebar.collapsed .sidebar-link {
+    padding: 0.75rem 0;
+    justify-content: center;
+}
+.sidebar-link i {
+    font-size: 1.25rem;
+    transition: margin 0.3s ease;
+}
+.sidebar-link span {
+    margin-left: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+#sidebar.collapsed .sidebar-link span {
+    display: none;
+}
+
+/* Sidebar Active & Hover States */
+.sidebar-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.sidebar-link.active {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    font-weight: 600;
+    border-left: 3px solid #ffffff;
+}
+.sidebar-link.active i {
+    color: var(--color-primary);
+}
+
+/* Sidebar Tooltips (only in collapsed mode) */
+#sidebar.collapsed .sidebar-link::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 1050;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+#sidebar.collapsed .sidebar-link:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Navbar Styling */
+#main-navbar {
+    height: 56px;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+body.dark-mode #main-navbar {
+    background-color: var(--color-surface-dark);
+}
+
+/* Page Content */
+#page-content {
+    padding: 2rem;
+    flex-grow: 1;
+    background-color: var(--color-bg);
+    transition: background-color 0.3s;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767.98px) {
+    #sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        bottom: 0;
+        z-index: 1040;
+        width: 260px;
+    }
+    /* Mobile expanded state is when the .collapsed class is REMOVED */
+    #sidebar:not(.collapsed) {
+        left: 0;
+    }
+    #sidebar.collapsed {
+        left: -260px;
+        width: 260px;
+    }
+    
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 1030;
+    }
+    body:has(#sidebar:not(.collapsed)) .sidebar-overlay {
+        display: block;
+    }
+}
+
+/* Theme Toggle Button Icon Display Rules */
+body.dark-mode #theme-toggle-btn .dark-mode-hide {
+    display: none !important;
+}
+body.dark-mode #theme-toggle-btn .dark-mode-show {
+    display: inline-block !important;
+}
+body:not(.dark-mode) #theme-toggle-btn .dark-mode-hide {
+    display: inline-block !important;
+}
+body:not(.dark-mode) #theme-toggle-btn .dark-mode-show {
+    display: none !important;
+}
+
+/* Dark Mode Contrast Overrides */
+body.dark-mode #main-navbar .navbar-title,
+body.dark-mode #sidebar-toggle-btn i {
+    color: var(--color-text-dark) !important;
+}
+body.dark-mode .language-toggle a.inactive-lang {
+    color: rgba(232, 234, 246, 0.5) !important;
+}
+body.dark-mode .language-toggle a.active-lang {
+    color: var(--color-secondary) !important;
+}
+
+/* ==========================================================================
+   MODERN MINIMALIST STYLE SHARP & SPARE STYLES (DASHBOARD REDESIGN)
+   ========================================================================== */
+
+:root {
+    --minimal-accent: #8ab9f1;
+    --minimal-border: rgba(38, 63, 147, 0.08);
+}
+
+body.dark-mode {
+    --minimal-border: rgba(255, 255, 255, 0.05);
+}
+
+/* Elegant Flat Minimal Card */
+.minimal-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--minimal-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px -15px rgba(38, 63, 147, 0.04);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark-mode .minimal-card {
+    background-color: var(--color-surface-dark);
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.25);
+}
+
+.minimal-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(38, 63, 147, 0.08);
+    border-color: rgba(38, 63, 147, 0.15) !important;
+}
+
+body.dark-mode .minimal-card:hover {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.45);
+}
+
+/* Spacious Gradient Hero Banner */
+.minimal-banner {
+    position: relative;
+    background: linear-gradient(135deg, rgba(38, 63, 147, 0.01) 0%, rgba(138, 185, 241, 0.04) 100%) !important;
+    border: 1px solid var(--minimal-border) !important;
+    border-radius: 20px !important;
+    overflow: hidden;
+}
+
+body.dark-mode .minimal-banner {
+    background: linear-gradient(135deg, rgba(38, 63, 147, 0.04) 0%, rgba(20, 23, 39, 0.1) 100%) !important;
+}
+
+/* Subtle Glowing Background Nodes */
+.minimal-glow-node {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138, 185, 241, 0.06) 0%, transparent 70%);
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+/* Minimalist Hairline Progress Gauges */
+.minimal-progress {
+    height: 3px;
+    background-color: var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+body.dark-mode .minimal-progress {
+    background-color: #25284b;
+}
+
+.minimal-progress-bar {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    transition: width 0.8s ease;
+}
+
+body.dark-mode .minimal-progress-bar {
+    background-color: var(--minimal-accent);
+}
+
+/* Spacious Technology slot grid */
+.minimal-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.minimal-tech-slot {
+    aspect-ratio: 1;
+    background-color: rgba(38, 63, 147, 0.02);
+    border: 1px solid rgba(38, 63, 147, 0.06);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+}
+
+body.dark-mode .minimal-tech-slot {
+    background-color: rgba(255, 255, 255, 0.01);
+    border-color: rgba(255, 255, 255, 0.03);
+    color: var(--color-text-dark);
+}
+
+.minimal-tech-slot[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 0.6rem;
+    font-family: sans-serif;
+    font-weight: 500;
+    padding: 3px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.minimal-tech-slot:hover {
+    background-color: rgba(38, 63, 147, 0.05);
+    border-color: var(--color-primary);
+}
+
+body.dark-mode .minimal-tech-slot:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: var(--minimal-accent);
+    color: var(--minimal-accent);
+}
+
+.minimal-tech-slot:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Elegant Dot Timeline */
+.minimal-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background-color: var(--color-border);
+}
+
+body.dark-mode .minimal-timeline::before {
+    background-color: #222647;
+}
+
+.minimal-event {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 1.5rem;
+}
+
+.minimal-event::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .minimal-event::before {
+    background-color: #222647;
+}
+
+.minimal-event.active::before {
+    background-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(38, 63, 147, 0.15);
+}
+
+body.dark-mode .minimal-event.active::before {
+    background-color: var(--minimal-accent);
+    box-shadow: 0 0 0 3px rgba(138, 185, 241, 0.15);
+}
+
+/* Minimalist outline & solid buttons */
+.btn-minimal {
+    background-color: var(--color-primary);
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 8px 20px;
+    border-radius: 30px !important;
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(38, 63, 147, 0.15);
+    transition: all 0.3s ease;
+}
+
+.btn-minimal:hover {
+    background-color: #3b5ec7;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(38, 63, 147, 0.22);
+}
+
+body.dark-mode .btn-minimal {
+    background-color: #3b4d8d;
+}
+
+body.dark-mode .btn-minimal:hover {
+    background-color: #4a5fa8;
+}
+
+.btn-minimal-outline {
+    background-color: transparent;
+    color: var(--color-primary) !important;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 8px 20px;
+    border-radius: 30px !important;
+    border: 1px solid var(--color-primary) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-minimal-outline:hover {
+    background-color: rgba(38, 63, 147, 0.04);
+    transform: translateY(-1px);
+}
+
+body.dark-mode .btn-minimal-outline {
+    color: var(--minimal-accent) !important;
+    border-color: var(--minimal-accent) !important;
+}
+
+body.dark-mode .btn-minimal-outline:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Sleek pulse breathing heartbeat */
+.minimal-heartbeat {
+    font-size: 1.1rem;
+    color: #ff4d6d;
+    animation: min-pulse 2s infinite ease-in-out;
+}
+
+@keyframes min-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* ==========================================================================
+   NEO-BRUTALIST STYLE SHARP & BOLD STYLES (DASHBOARD REDESIGN)
+   ========================================================================== */
+
+:root {
+    --neo-shadow: var(--color-text);
+    --neo-border-width: 3px;
+    --neo-border: var(--neo-border-width) solid var(--color-text);
+}
+
+body.dark-mode {
+    --neo-shadow: #000000;
+    --neo-border: var(--neo-border-width) solid var(--color-text);
+}
+
+/* Neo Brutalist Card */
+.neo-card {
+    background-color: var(--color-surface);
+    border: var(--neo-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.neo-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0px var(--neo-shadow) !important;
+}
+
+.neo-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0px var(--neo-shadow) !important;
+}
+
+/* Neo Brutalist Windows-95/Terminal Style Window */
+.neo-window {
+    background-color: var(--color-surface);
+    border: var(--neo-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neo-window:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--neo-shadow) !important;
+}
+
+.neo-window-header {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-bottom: var(--neo-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    user-select: none;
+}
+
+.neo-window-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.neo-window-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-text);
+    display: inline-block;
+}
+
+.neo-window-dot.dot-red { background-color: #ff5f56; }
+.neo-window-dot.dot-yellow { background-color: #ffbd2e; }
+.neo-window-dot.dot-green { background-color: #27c93f; }
+
+.neo-window-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 0.8rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.neo-window-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Neo Brutalist Buttons */
+.neo-btn-primary {
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    border: var(--neo-border) !important;
+    border-radius: 6px !important;
+    box-shadow: 4px 4px 0px var(--neo-shadow) !important;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.neo-btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+}
+
+.neo-btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+}
+
+.neo-btn-outline {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-text) !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 0.6rem 1.5rem;
+    border: var(--neo-border) !important;
+    border-radius: 6px !important;
+    box-shadow: 4px 4px 0px var(--neo-shadow) !important;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.neo-btn-outline:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+    background-color: var(--color-surface) !important;
+}
+
+.neo-btn-outline:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+}
+
+/* Neo Brutalist Badges */
+.neo-badge {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border: 2px solid var(--color-text);
+    border-radius: 4px;
+    box-shadow: 2px 2px 0px var(--neo-shadow);
+    display: inline-block;
+}
+
+/* Neo Brutalist Progress Gauges */
+.neo-progress {
+    height: 16px;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.neo-progress-bar {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-right: 2px solid var(--color-text);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Retro diagonal stripes */
+    background-image: linear-gradient(
+        45deg, 
+        rgba(255, 255, 255, 0.15) 25%, 
+        transparent 25%, 
+        transparent 50%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(255, 255, 255, 0.15) 75%, 
+        transparent 75%, 
+        transparent
+    );
+    background-size: 12px 12px;
+}
+
+/* Neo Brutalist Technology Slots */
+.neo-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.neo-tech-slot {
+    aspect-ratio: 1;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-text);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--color-text);
+    box-shadow: 3px 3px 0px var(--neo-shadow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    cursor: default;
+    position: relative;
+}
+
+.neo-tech-slot:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px var(--neo-shadow);
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.neo-tech-slot[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    padding: 3px 6px;
+    border: 1.5px solid var(--color-text);
+    border-radius: 4px;
+    box-shadow: 2px 2px 0px var(--neo-shadow);
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.neo-tech-slot:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Neo Brutalist Diagnostic Timeline Console */
+.neo-console {
+    background-color: #0f111c !important;
+    border: var(--neo-border) !important;
+    border-radius: 8px !important;
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+    overflow: hidden;
+}
+
+.neo-console-header {
+    background-color: #1a1d30;
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.neo-console-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.neo-console-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.neo-console-body {
+    padding: 1.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.825rem;
+    color: #a8b2d1;
+    background-color: #0c0e18;
+}
+
+.neo-console-prompt {
+    color: #4ef06b;
+    font-weight: bold;
+    user-select: none;
+}
+
+.neo-console-event {
+    margin-bottom: 1.5rem;
+    border-left: 2px dashed #3a3f58;
+    padding-left: 15px;
+    margin-left: 5px;
+    position: relative;
+}
+
+.neo-console-event::before {
+    content: '>';
+    position: absolute;
+    left: -6px;
+    top: 0;
+    color: #ff79c6;
+    font-weight: bold;
+}
+
+.neo-console-meta {
+    color: #8be9fd;
+    font-weight: bold;
+}
+
+.neo-console-title {
+    color: #50fa7b;
+    font-weight: bold;
+}
+
+.neo-console-desc {
+    color: #f8f8f2;
+}
+
+/* ==========================================================================
+   NEO-BRUTALIST SIDEBAR & PROFILE PAGE OVERRIDES
+   ========================================================================== */
+
+#sidebar {
+    border-right: 4px solid var(--color-text) !important;
+    box-shadow: none !important;
+}
+
+.sidebar-header {
+    border-bottom: 3px solid var(--color-text) !important;
+    padding: 1.5rem 1rem;
+}
+
+#sidebar.collapsed .sidebar-header {
+    padding: 1rem 0.5rem;
+}
+
+.sidebar-avatar {
+    border: 3px solid var(--color-secondary) !important;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 12px !important; /* Brutalist square border */
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#sidebar.collapsed .sidebar-avatar {
+    border-radius: 8px !important;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2) !important;
+}
+
+.sidebar-link {
+    margin: 0.5rem 1rem !important;
+    border-radius: 6px !important;
+    border: 2px solid transparent !important;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease !important;
+}
+
+#sidebar.collapsed .sidebar-link {
+    margin: 0.5rem 0.25rem !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.sidebar-link.active {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-primary) !important;
+    font-weight: 800 !important;
+    border: 2px solid var(--color-text) !important;
+    box-shadow: 4px 4px 0px var(--neo-shadow) !important;
+}
+
+#sidebar.collapsed .sidebar-link.active {
+    box-shadow: 3px 3px 0px var(--neo-shadow) !important;
+}
+
+.sidebar-link:not(.active):hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    transform: translate(-2px, -2px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+#sidebar.collapsed .sidebar-link:not(.active):hover {
+    transform: translate(-1px, -1px) !important;
+}
+
+/* Neo Brutalist Social Wide Buttons for Profile */
+.neo-social-btn {
+    background-color: var(--color-surface) !important;
+    color: var(--color-text) !important;
+    border: 2px solid var(--color-text) !important;
+    border-radius: 8px !important;
+    box-shadow: 4px 4px 0px var(--neo-shadow) !important;
+    padding: 0.85rem 1.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-decoration: none !important;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease !important;
+}
+
+.neo-social-btn:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0px var(--neo-shadow) !important;
+    background-color: var(--color-bg) !important;
+}
+
+.neo-social-btn:active {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+}
+
+/* Education Timeline Overrides */
+.neo-education-timeline {
+    position: relative;
+}
+
+.neo-education-timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 4px;
+    background-color: var(--color-text);
+    z-index: 1;
+}
+
+/* ==========================================================================
+   NEO-BRUTALIST NAVBAR OVERRIDES
+   ========================================================================== */
+
+#main-navbar {
+    background-color: var(--color-bg) !important;
+    border-bottom: 4px solid var(--color-text) !important;
+    box-shadow: none !important;
+    height: 64px !important; /* Slightly taller for visual weight */
+}
+
+body.dark-mode #main-navbar {
+    background-color: var(--color-bg) !important;
+}
+
+/* Square Brutalist Action Buttons inside Navbar */
+.neo-nav-btn {
+    width: 38px;
+    height: 38px;
+    background-color: var(--color-secondary) !important;
+    color: var(--color-text) !important;
+    border: 2px solid var(--color-text) !important;
+    border-radius: 6px !important;
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease !important;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+.neo-nav-btn:hover {
+    transform: translate(-1px, -1px) !important;
+    box-shadow: 3px 3px 0px var(--neo-shadow) !important;
+    background-color: var(--color-surface) !important;
+}
+
+.neo-nav-btn:active {
+    transform: translate(1px, 1px) !important;
+    box-shadow: 1px 1px 0px var(--neo-shadow) !important;
+}
+
+body.dark-mode .neo-nav-btn {
+    background-color: var(--color-surface) !important;
+    color: var(--color-text-dark) !important;
+}
+
+/* Saturated Language Toggle Badges */
+.neo-lang-btn {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-weight: 800 !important;
+    font-size: 0.75rem !important;
+    text-decoration: none !important;
+    padding: 0.3rem 0.6rem !important;
+    border: 2px solid var(--color-text) !important;
+    border-radius: 4px !important;
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.neo-lang-btn.active-lang {
+    background-color: var(--color-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+}
+
+.neo-lang-btn.inactive-lang {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-text) !important;
+}
+
+.neo-lang-btn.inactive-lang:hover {
+    background-color: var(--color-surface) !important;
+    transform: translate(-1px, -1px) !important;
+    box-shadow: 2px 2px 0px var(--neo-shadow) !important;
+}
+
+body.dark-mode .neo-lang-btn.inactive-lang {
+    background-color: var(--color-surface) !important;
+    color: var(--color-text-dark) !important;
+}
