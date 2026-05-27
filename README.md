@@ -1,58 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# IS-Portfolio: Information System Architect Portfolio
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**IS-Portfolio** is a premium, modern, and high-performance personal portfolio website built for **Muhammad Danil Aminuddin**, structured in a beautiful **Neo-Brutalist Windows-95/Cyberpunk HUD style**. 
 
-## About Laravel
+The application is engineered using **Laravel 13**, **Bootstrap 5**, and lightweight **Vanilla JS** to present a fast, responsive, and secure experience for recruiters, potential clients, and professional peers.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Key Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+*   **Premium Neo-Brutalist Interface**: Custom-crafted interface utilizing harmonized CSS custom variables, tactile flat drop shadows (`box-shadow: var(--neo-shadow)`), clean responsive transitions, and double-line brutalist window panels.
+*   **Bilingual Translation Support (ID/EN)**: Full localization engine running on custom `SetLocale` session middleware, ensuring that the selected translation locale persists smoothly across pages and dynamic AJAX endpoints.
+*   **Tactile Freelance Price Catalog**: Elegant pricing package matrices with direct, package-specific **WhatsApp click-to-chat** call-to-actions, eliminating internal form redundancies.
+*   **Dynamic Debounced Projects Filter**: Live category filtering pills and real-time search inputs that query the backend project API dynamically. Staggered fade-in card entries and beautiful skeleton shimmers enhance visual feedback.
+*   **Security Built-in**: Full protection against DOM-based Cross-Site Scripting (XSS) via proactive client-side dynamic content escaping, request rate-limiting (throttling), and SQL injection prevention.
+*   **Highly Scalable Queries**: Fully optimized database queries, utilizing composite database indexes and pluck collections to mitigate N+1 query patterns.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Technology Stack
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Layer | Technology |
+| --- | --- |
+| **Backend Framework** | Laravel 13.x |
+| **Programming Language** | PHP 8.3+ |
+| **Frontend Templates** | Laravel Blade |
+| **Styling Framework** | Bootstrap 5 + Bootstrap Icons |
+| **Database Engine** | MySQL / MariaDB |
+| **JavaScript & Dynamic Logic** | Vanilla JS / Alpine.js |
+| **Asset Compiler & Build Tool** | Vite |
+| **Runtime Environment** | Laragon / Local Development Server |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## 📁 Directory Structure Overview
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+IS-Portfolio/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/
+│   │   │   │   └── ProjectApiController.php  # Capped dynamic projects JSON endpoints
+│   │   │   ├── ExperienceController.php
+│   │   │   ├── FreelancePriceController.php
+│   │   │   └── ProfileController.php         # Single bulk pluck setting queries
+│   │   └── Middleware/
+│   │       └── SetLocale.php                 # Persists selected language session
+│   └── Models/
+│       ├── Experience.php
+│       ├── FreelancePrice.php
+│       ├── Project.php                       # Bilingual title/description casts
+│       └── SiteSetting.php
+├── database/
+│   ├── migrations/                           # Category, order, and featured indexes
+│   └── seeders/                              # Compiles profile, project, and package seeds
+├── resources/
+│   ├── css/
+│   │   └── app.css                           # Unified Neo-Brutalist variables & tokens
+│   ├── js/
+│   │   └── app.js                            # Sidebar controls & Dark Mode re-bindings
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php                 # Main responsive wrapper
+│       ├── components/
+│       │   ├── navbar.blade.php              # Dynamic title, ID/EN toggle, theme switcher
+│       │   ├── sidebar.blade.php             # Spec-compliant active routes navigation
+│       │   └── project-card.blade.php
+│       └── pages/
+│           ├── dashboard.blade.php
+│           ├── profile.blade.php
+│           ├── freelance-price.blade.php     # Independent pricing packages
+│           └── projects/
+│               └── index.blade.php           # Secure, debounced dynamics cards renderer
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 💻 Installation & Setup
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Follow these steps to run the project locally on your machine:
 
-## Code of Conduct
+### 1. Prerequisite Checklist
+*   PHP 8.3 or higher installed.
+*   Composer package manager.
+*   Node.js & NPM package manager.
+*   MySQL/MariaDB database server active.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Clone and Setup Dependencies
+Clone the repository, enter the workspace directory, and install backend and frontend dependencies:
+```bash
+git clone https://github.com/needanzz/portfolio.git
+cd portfolio
+composer install
+npm install
+```
 
-## Security Vulnerabilities
+### 3. Environment Settings
+Duplicate `.env.example` to establish your active env configuration:
+```bash
+cp .env.example .env
+```
+Open `.env` and set up your local database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Database Setup & Seed
+Rebuild the database schema, run the optimized performance migrations, and populate mock records:
+```bash
+php artisan migrate:fresh --seed
+```
 
-## License
+### 5. Launch Application
+Compile frontend assets and start your local server:
+```bash
+# Compile and hot-reload CSS/JS assets
+npm run dev
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Start Laravel local development server (runs at http://127.0.0.1:8000)
+php artisan serve
+```
+
+---
+
+## 🛡️ Code Quality & Verification Actions
+
+We maintain a strict quality assurance standard. Every structural change is logged under our `.code-reviews/` folder. Performance benchmarks, queries profiles, and visual guidelines are validated continuously.
+
+*   To run the complete test suite:
+    ```bash
+    php artisan test
+    ```
+*   To clean and rebuild Laravel configuration:
+    ```bash
+    php artisan config:clear && php artisan route:clear && php artisan view:clear
+    ```
+
+---
+
+*Owner: Muhammad Danil Aminuddin © 2026. All rights reserved.*
