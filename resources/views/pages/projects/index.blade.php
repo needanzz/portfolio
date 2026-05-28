@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </p>
 
                         <div class="mt-auto">
-                            <div class="d-flex flex-wrap gap-1.5 mb-4" style="min-height: 3rem; align-content: flex-start;">
+                            <div class="d-flex flex-wrap mb-4" style="gap: 6px; min-height: 3rem; align-content: flex-start;">
                                 ${techBadges}
                             </div>
 

@@ -33,7 +33,7 @@
                         @lang('dashboard.hero.bio')
                     </p>
                 </div>
-                <!-- <!-- <div class="col-lg-4 d-none d-lg-block">
+                <!-- <div class="col-lg-4 d-none d-lg-block">
                     Diagnostic Matrix Panel
                     <div class="neo-card p-4">
                         <div class="text-uppercase mb-3 fw-bold border-bottom border-dark pb-2 d-flex align-items-center justify-content-between font-monospace" 
@@ -200,7 +200,7 @@
             </div>
 
             <!-- Pure Neo-Brutalist Log Timeline Window -->
-            <div class="neo-window h-100 mb-0">
+            <div class="neo-window mb-0">
                 <div class="neo-window-header">
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-journal-text"></i>
@@ -212,15 +212,15 @@
                         <span class="neo-window-dot dot-green"></span>
                     </div>
                 </div>
-                <div class="neo-window-body d-flex flex-column gap-4 position-relative" style="min-height: 400px;">
-                    <!-- Solid vertical timeline line -->
-                    <div class="position-absolute" style="left: 27px; top: 1.5rem; bottom: 1.5rem; width: 4px; background-color: var(--color-text); z-index: 1;"></div>
-
+                <div class="neo-window-body d-flex flex-column gap-4 position-relative">
                     <!-- Log Event 1 -->
                     <div class="d-flex gap-3 position-relative" style="z-index: 2;">
+                        <!-- Line connecting first node to second node -->
+                        <div class="position-absolute" style="left: 11px; top: 13px; bottom: -37px; width: 4px; background-color: var(--color-text); z-index: 1;"></div>
+
                         <!-- Timeline Node -->
                         <div class="flex-shrink-0 d-flex justify-content-center align-items-center" 
-                             style="width: 26px; height: 26px; border-radius: 50%; background-color: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: 2px 2px 0px var(--neo-shadow);">
+                             style="width: 26px; height: 26px; border-radius: 50%; background-color: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: 2px 2px 0px var(--neo-shadow); z-index: 2;">
                             <span class="d-inline-block rounded-circle bg-success" style="width: 8px; height: 8px;"></span>
                         </div>
                         <!-- Log Content Box -->
@@ -241,7 +241,7 @@
                     <div class="d-flex gap-3 position-relative" style="z-index: 2;">
                         <!-- Timeline Node -->
                         <div class="flex-shrink-0 d-flex justify-content-center align-items-center" 
-                             style="width: 26px; height: 26px; border-radius: 50%; background-color: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: 2px 2px 0px var(--neo-shadow);">
+                             style="width: 26px; height: 26px; border-radius: 50%; background-color: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: 2px 2px 0px var(--neo-shadow); z-index: 2;">
                             <span class="d-inline-block rounded-circle" style="width: 8px; height: 8px; background-color: var(--color-muted);"></span>
                         </div>
                         <!-- Log Content Box -->

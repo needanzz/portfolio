@@ -202,7 +202,7 @@
                 <i class="bi bi-chat-left-quote display-6 mb-2 text-muted"></i>
                 <h6 class="fw-bold mb-1 font-monospace" style="color: var(--color-primary); font-weight: 800;">Tertarik dengan Sistem ini?</h6>
                 <p class="text-muted small mb-4 font-monospace">Dapatkan custom development atau integrasi sistem informasi serupa untuk bisnis Anda.</p>
-                <a href="{{ route('contact') }}" class="neo-btn-outline rounded-pill px-4 py-2" style="font-size: 0.8rem;">
+                <a href="https://wa.me/62895347027464" target="_blank" class="neo-btn-outline rounded-pill px-4 py-2" style="font-size: 0.8rem;">
                     Hubungi Saya
                 </a>
             </div>

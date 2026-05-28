@@ -70,7 +70,7 @@
 
         <!-- Tech Stack Badge Register -->
         <div class="mt-auto">
-            <div class="d-flex flex-wrap gap-1.5 mb-4" style="min-height: 3rem; align-content: flex-start;">
+            <div class="d-flex flex-wrap mb-4" style="gap: 6px; min-height: 3rem; align-content: flex-start;">
                 @foreach($project->tech_stack as $tech)
                     <span class="neo-badge text-muted font-monospace" style="font-size: 0.6rem; padding: 0.15rem 0.4rem; box-shadow: none; background-color: var(--color-bg);">
                         {{ $tech }}
